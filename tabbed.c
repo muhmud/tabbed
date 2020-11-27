@@ -156,7 +156,7 @@ static int bh, obh, wx, wy, ww, wh;
 static unsigned int numlockmask;
 static Bool running = True, nextfocus, doinitspawn = True,
             fillagain = False, closelastclient = False,
-            killclientsfirst = False, showtabs = False;
+            killclientsfirst = False, showtabs = True;
 static Display *dpy;
 static DC dc;
 static Atom wmatom[WMLast];
