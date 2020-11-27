@@ -1274,7 +1274,7 @@ xsettitle(Window w, const char *str)
 void
 usage(void)
 {
-	die("usage: %s [-dfksvT] [-g geometry] [-n name] [-p [s+/-]pos]\n"
+	die("usage: %s [-dfksvN] [-g geometry] [-n name] [-p [s+/-]pos]\n"
 	    "       [-r narg] [-o color] [-O color] [-t color] [-T color]\n"
 	    "       [-u color] [-U color] command...\n", argv0);
 }
@@ -1343,7 +1343,7 @@ main(int argc, char *argv[])
 		die("tabbed-"VERSION", © 2009-2016 tabbed engineers, "
 		    "see LICENSE for details.\n");
 		break;
-  case 'T':
+  case 'N':
     showtabs = False;
     break;
 	default:
