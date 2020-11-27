@@ -156,7 +156,7 @@ static int bh, obh, wx, wy, ww, wh;
 static unsigned int numlockmask;
 static Bool running = True, nextfocus, doinitspawn = True,
             fillagain = False, closelastclient = False,
-            killclientsfirst = False;
+            killclientsfirst = False, showtabs = False;
 static Display *dpy;
 static DC dc;
 static Atom wmatom[WMLast];
@@ -323,6 +323,10 @@ die(const char *errstr, ...)
 void
 drawbar(void)
 {
+  if (!showtabs) {
+    return;
+  }
+
 	XftColor *col;
 	int c, cc, fc, width;
 	char *name = NULL;
@@ -984,7 +988,9 @@ setup(void)
 	screen = DefaultScreen(dpy);
 	root = RootWindow(dpy, screen);
 	initfont(font);
-	bh = dc.h = 0; // dc.font.height + 2;
+
+  /* header row size */
+  bh = dc.h = showtabs ? dc.font.height + 2 : 0;
 
 	/* init atoms */
 	wmatom[WMDelete] = XInternAtom(dpy, "WM_DELETE_WINDOW", False);
@@ -1268,7 +1274,7 @@ xsettitle(Window w, const char *str)
 void
 usage(void)
 {
-	die("usage: %s [-dfksv] [-g geometry] [-n name] [-p [s+/-]pos]\n"
+	die("usage: %s [-dfksvT] [-g geometry] [-n name] [-p [s+/-]pos]\n"
 	    "       [-r narg] [-o color] [-O color] [-t color] [-T color]\n"
 	    "       [-u color] [-U color] command...\n", argv0);
 }
@@ -1337,6 +1343,9 @@ main(int argc, char *argv[])
 		die("tabbed-"VERSION", © 2009-2016 tabbed engineers, "
 		    "see LICENSE for details.\n");
 		break;
+  case 'T':
+    showtabs = False;
+    break;
 	default:
 		usage();
 		break;
